@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:orientation="vertical" >
+
+    <RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent" >
+
+		 <EditText
+		     android:id="@+id/noteTitle"
+		     android:layout_width="wrap_content"
+		     android:layout_height="wrap_content"
+		     android:layout_alignParentLeft="true"
+		     android:layout_alignParentTop="true"
+		     android:layout_toLeftOf="@+id/btnChangeColor"
+		     android:ems="10"
+		     android:hint="@string/add_note_title" />
+		 
+		 <ImageButton
+		     android:id="@+id/btnChangeColor"
+		     android:layout_width="wrap_content"
+		     android:layout_height="wrap_content"
+		     android:paddingTop="3dp"
+		     android:layout_alignBottom="@+id/noteTitle"
+		     android:layout_alignParentRight="true"
+		     android:layout_alignParentTop="true"
+		     android:background="@android:color/transparent"
+		     android:src="@drawable/ic_pick_color"
+		     />
+   
+    </RelativeLayout>
+    
+    <RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent" >
+	
+	    <EditText
+	        android:id="@+id/noteDescription"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:singleLine="false"
+	        android:gravity="top"
+	        android:inputType="textMultiLine"
+	        android:hint = "@string/add_note_description"
+	        android:ems="10" >
+	        <requestFocus />
+	    </EditText>
+
+	</RelativeLayout> 
+    
+</LinearLayout>
+
+
+
+<!--  
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="137dp"
+        android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/noteText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+    
+   <RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent" >
+	
+	    <EditText
+	        android:id="@+id/noteText"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:singleLine="false"
+	        android:gravity="top"
+	        android:inputType="textMultiLine"
+	        android:ems="10" >
+	        <requestFocus />
+	    </EditText>
+	</RelativeLayout> 
+ </LinearLayout>
+ -->
+    
+

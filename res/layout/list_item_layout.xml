@@ -4,7 +4,8 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="1dp">
+    android:padding="1dp"
+    >
 
     
     
@@ -24,8 +25,10 @@
 <TextView
     android:id="@+id/txtNoteListTitle"
     android:layout_width="0dip"
-    android:layout_height="wrap_content"
+    android:layout_height="65dp"
+    android:gravity="center_vertical"
     android:layout_gravity="center_vertical"
+    android:textAlignment="center"
     android:ellipsize="end"
     android:padding="5dp"
     android:singleLine="true"

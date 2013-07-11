@@ -5,4 +5,5 @@
     <string name="action_create">Create New</string>
     <string name="add_note_title">Add title</string>
     <string name="add_note_description">Add details</string>
+    <string name="note_list_operations">Operations</string>
 </resources>

@@ -126,6 +126,7 @@ public class MainActivity extends ListActivity{
 			ContextMenuInfo menuInfo) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
 		currentNoteId = (int)info.id;
+		menu.setHeaderTitle(R.string.note_list_operations);
 		menu.add(0, MENU_DELETE_ID, 0, "Delete");
 		super.onCreateContextMenu(menu, v, menuInfo);
 	}

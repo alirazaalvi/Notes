@@ -6,6 +6,9 @@
     android:layout_height="fill_parent"
     android:padding="1dp">
 
+    
+    
+    
  <TextView 
     android:id="@+id/txtColorBlock"
     android:layout_width="5dp"
@@ -13,23 +16,37 @@
     android:padding="5dp"
     android:singleLine="true"
     android:textSize="0sp"
+    android:layout_weight="0"
     >
 
 </TextView>
  
- 
-<TextView 
+<TextView
     android:id="@+id/txtNoteListTitle"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content" 
+    android:layout_width="0dip"
+    android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
+    android:ellipsize="end"
     android:padding="5dp"
     android:singleLine="true"
-    android:textSize="20sp"
-    android:ellipsize="end"
-    android:drawableRight="@drawable/ic_itemlist_edit"
-    >
-
+    android:layout_weight="1"
+    android:textSize="20sp" >
+ 
 </TextView>
+
+<TextView 
+    android:id="@+id/txtNoteListDate"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent" 
+    android:layout_gravity="center_vertical"
+    android:padding="1dp"
+    android:singleLine="true"
+    android:textSize="14sp"
+    android:textStyle="italic"
+    android:textColor="#6B6B6B"
+    android:layout_weight="0"
+    >
+</TextView>
+
 
 </LinearLayout>

@@ -27,7 +27,7 @@ public final class R {
         public static final int ic_pick_color=0x7f020003;
     }
     public static final class id {
-        public static final int action_create=0x7f08000f;
+        public static final int action_create=0x7f080010;
         public static final int btnBlue=0x7f08000a;
         public static final int btnChangeColor=0x7f080001;
         public static final int btnGray=0x7f08000b;
@@ -42,6 +42,7 @@ public final class R {
         public static final int tableRow1=0x7f080003;
         public static final int tableRow2=0x7f080008;
         public static final int txtColorBlock=0x7f08000d;
+        public static final int txtNoteListDate=0x7f08000f;
         public static final int txtNoteListTitle=0x7f08000e;
     }
     public static final class layout {

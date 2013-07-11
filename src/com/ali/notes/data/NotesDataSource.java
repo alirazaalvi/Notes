@@ -96,7 +96,7 @@ public class NotesDataSource extends SQLiteOpenHelper {
 	}
 
 	public String getCurrentDate() {
-		String pattern = "yyyy-MM-dd HH:mm:ss";
+		String pattern = "yyyy-MM-dd HH:mm:ss Z";
 		SimpleDateFormat formatter = new SimpleDateFormat(pattern);
 		return formatter.format(new Date());
 	}

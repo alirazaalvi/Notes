@@ -69,7 +69,7 @@ public class ColorScheme {
 		
 		HashMap<String, String> whiteHash = new HashMap<String, String>();
 		whiteHash.put("title", "#FFFFFF");
-		whiteHash.put("description", "#EEEDEF");
+		whiteHash.put("description", "#F4F2F2");
 		this.colorCodes.put("white", whiteHash);
 	}
 

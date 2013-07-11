@@ -1,12 +1,18 @@
 package com.ali.notes;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import com.ali.notes.data.NoteItem;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +34,7 @@ public class NotesListAdapter extends ArrayAdapter<NoteItem> {
 		this.data = data;
 	}
 	
-	@Override
+	
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View row = convertView;
 		noteHolder holder = null;
@@ -39,8 +45,10 @@ public class NotesListAdapter extends ArrayAdapter<NoteItem> {
 	           
             holder = new noteHolder();
             holder.txtTitle = (TextView)row.findViewById(R.id.txtNoteListTitle);
+            holder.txtDate = (TextView)row.findViewById(R.id.txtNoteListDate);
             holder.txtColorBlock = (TextView)row.findViewById(R.id.txtColorBlock);
-           
+            
+            
             row.setTag(holder);
 		}
 		else
@@ -48,10 +56,31 @@ public class NotesListAdapter extends ArrayAdapter<NoteItem> {
 			holder = (noteHolder) row.getTag();
 		}
 		
-		NoteItem noteRow = data.get(position);
-		holder.txtTitle.setText(noteRow.getTitle());
-		holder.txtTitle.setBackgroundColor(Color.parseColor(colorScheme.colorCodes.get(noteRow.getColorScheme()).get("title")));
-		holder.txtColorBlock.setBackgroundColor(Color.parseColor(colorScheme.colorCodes.get(noteRow.getColorScheme()).get("description")));
+		NoteItem noteItem = data.get(position);
+		holder.txtTitle.setText(noteItem.getTitle());
+		holder.txtTitle.setBackgroundColor(Color.parseColor(colorScheme.colorCodes.get(noteItem.getColorScheme()).get("title")));
+		
+		
+		holder.txtDate.setBackgroundColor(Color.parseColor(colorScheme.colorCodes.get(noteItem.getColorScheme()).get("title")));
+		
+		String noteDate = "";
+		
+		//SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		//Date date = dateFormat.parse("2011-02-16 11:38:03.328 UTC");
+		
+		SimpleDateFormat inputFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //please notice the    capital M
+	    SimpleDateFormat outputFormatter = new SimpleDateFormat("MMM d");
+	    try {
+	    	java.util.Date date = (java.util.Date) inputFormatter.parse(noteItem.getNoteDate());
+	        noteDate = outputFormatter.format(date).toString() + "  " ;
+		} catch (ParseException e) {
+			//e.printStackTrace();
+		}
+		
+		holder.txtDate.setText(noteDate);
+		
+		holder.txtColorBlock.setBackgroundColor(Color.parseColor(colorScheme.colorCodes.get(noteItem.getColorScheme()).get("description")));
+		
 		
 		return row;
 	}
@@ -61,5 +90,6 @@ public class NotesListAdapter extends ArrayAdapter<NoteItem> {
     {
         TextView txtColorBlock;
 		TextView txtTitle;
+		TextView txtDate;
     }
 }

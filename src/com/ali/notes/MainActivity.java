@@ -7,6 +7,7 @@ import com.ali.notes.data.NoteItem;
 import com.ali.notes.data.NotesDataSource;
 
 import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
@@ -96,6 +97,7 @@ public class MainActivity extends ListActivity{
 	
 	
 	
+	@SuppressLint("NewApi")
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(requestCode == EDITOR_ACTIVITY_REQUEST && resultCode == RESULT_OK)
@@ -109,8 +111,11 @@ public class MainActivity extends ListActivity{
 			note.setColorScheme(data.getStringExtra("colorScheme"));
 			if(OID == 0)
 			{
-				dataSource.insert(note);
-				showStatusToast("Note inserted successfully");
+				if( (note.getTitle() != null && !note.getTitle().isEmpty()) && (note.getDescription() != null && !note.getDescription().isEmpty()))
+				{
+					dataSource.insert(note);
+					showStatusToast("Note inserted successfully");
+				}
 			}
 			else
 			{

@@ -66,7 +66,6 @@ public class NoteEditorActivity extends Activity implements OnClickListener{
 		txtTitle.setText(note.getTitle());
 		txtDescription.setText(note.getDescription());
 		
-		
 		txtTitle.setSelection(txtTitle.length());
 		//txtDescription.setSelection(txtDescription.length());
 		
@@ -207,21 +206,24 @@ public class NoteEditorActivity extends Activity implements OnClickListener{
 	public void setEditorBackgroundColor(String scheme)
 	{
 		TextView noteTitle = (TextView) findViewById(R.id.noteTitle);
-		TextView noteDescription = (TextView) findViewById(R.id.noteDescription);
+		TextView txtNoteTopBorder = (TextView) findViewById(R.id.txtNoteTopBorder);
+		//TextView noteDescription = (TextView) findViewById(R.id.noteDescription);
 		ImageButton btnChangeColor = (ImageButton) findViewById(R.id.btnChangeColor);
-		
 		
 		if(scheme != null && !scheme.isEmpty())
 		{
 			noteTitle.setBackgroundColor(Color.parseColor(this.colorScheme.colorCodes.get(scheme).get("title")));
-			noteDescription.setBackgroundColor(Color.parseColor(this.colorScheme.colorCodes.get(scheme).get("description")));
+			//noteDescription.setBackgroundColor(Color.parseColor(this.colorScheme.colorCodes.get(scheme).get("description")));
+			txtNoteTopBorder.setBackgroundColor(Color.parseColor(this.colorScheme.colorCodes.get(scheme).get("description")));
+			
 			btnChangeColor.setBackgroundColor(Color.parseColor(this.colorScheme.colorCodes.get(scheme).get("title")));
 			this.colorScheme.setColorScheme(scheme);
 		}
 		else
 		{
 			noteTitle.setBackgroundColor(Color.parseColor(this.colorScheme.colorCodes.get(this.colorScheme.defaultColorScheme).get("title")));
-			noteDescription.setBackgroundColor(Color.parseColor(this.colorScheme.colorCodes.get(this.colorScheme.defaultColorScheme).get("description")));
+			//noteDescription.setBackgroundColor(Color.parseColor(this.colorScheme.colorCodes.get(this.colorScheme.defaultColorScheme).get("description")));
+			txtNoteTopBorder.setBackgroundColor(Color.parseColor(this.colorScheme.colorCodes.get(this.colorScheme.defaultColorScheme).get("description")));
 			btnChangeColor.setBackgroundColor(Color.parseColor(this.colorScheme.colorCodes.get(this.colorScheme.defaultColorScheme).get("title")));
 			this.colorScheme.setColorScheme(scheme);
 		}

@@ -10,6 +10,7 @@ import java.util.TreeSet;
 
 import com.ali.notes.R.string;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -27,7 +28,7 @@ public class NotesDataSource extends SQLiteOpenHelper {
 	}
 
 	public List<NoteItem> findAll() {
-		String sql = "Select OID,title,description,note_date,color_scheme from notes";
+		String sql = "Select OID,title,description,note_date,color_scheme,is_checked from notes";
 		List<NoteItem> notesList = new ArrayList<NoteItem>();
 		SQLiteDatabase db = getWritableDatabase();
 		Cursor cursor = db.rawQuery(sql, null);
@@ -40,6 +41,7 @@ public class NotesDataSource extends SQLiteOpenHelper {
 				noteItem.setDescription(cursor.getString(2));
 				noteItem.setNoteDate(cursor.getString(3));
 				noteItem.setColorScheme(cursor.getString(4));
+				noteItem.setIsChecked(cursor.getInt(5));
 				notesList.add(noteItem);
 			} while (cursor.moveToNext());
 
@@ -50,13 +52,22 @@ public class NotesDataSource extends SQLiteOpenHelper {
 
 	}
 
+	@SuppressLint("NewApi")
 	public boolean insert(NoteItem noteItem) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
-		values.put(noteItem.FIELD_TITLE, noteItem.getTitle());
+		if(noteItem.getTitle() == null || noteItem.getTitle().isEmpty())
+		{
+			values.put(noteItem.FIELD_TITLE, this.getCurrentDate("MMM d"));
+		}
+		else
+		{
+			values.put(noteItem.FIELD_TITLE, noteItem.getTitle());
+		}
 		values.put(noteItem.FIELD_DESCRIPTION, noteItem.getDescription());
 		values.put(noteItem.FIELD_NOTE_DATE, this.getCurrentDate());
 		values.put(noteItem.FIELD_COLOR_SCHEME, noteItem.getColorScheme());
+		values.put(noteItem.FIELD_IS_CHECKED, 0);
 		db.insert(noteItem.NOTES_TABLE, null, values);
 		db.close();
 		return true;
@@ -68,6 +79,7 @@ public class NotesDataSource extends SQLiteOpenHelper {
 		values.put(NoteItem.FIELD_TITLE, noteItem.getTitle());
 		values.put(noteItem.FIELD_DESCRIPTION, noteItem.getDescription());
 		values.put(noteItem.FIELD_COLOR_SCHEME, noteItem.getColorScheme());
+		values.put(noteItem.FIELD_IS_CHECKED, noteItem.getIsChecked());
 		db.update(noteItem.NOTES_TABLE, values, noteItem.FIELD_OID + "= ?",
 				new String[] { String.valueOf(noteItem.getOID()) });
 		db.close();
@@ -85,7 +97,7 @@ public class NotesDataSource extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL("CREATE TABLE IF NOT EXISTS " + NoteItem.NOTES_TABLE + "(title VARCHAR, description TEXT, color_scheme VARCHAR, note_date TEXT);");
+		db.execSQL("CREATE TABLE IF NOT EXISTS " + NoteItem.NOTES_TABLE + "(title VARCHAR, description TEXT, color_scheme VARCHAR, note_date TEXT, is_checked INTEGER);");
 	}
 
 	@Override
@@ -97,6 +109,11 @@ public class NotesDataSource extends SQLiteOpenHelper {
 
 	public String getCurrentDate() {
 		String pattern = "yyyy-MM-dd HH:mm:ss Z";
+		SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+		return formatter.format(new Date());
+	}
+	
+	public String getCurrentDate(String pattern) {
 		SimpleDateFormat formatter = new SimpleDateFormat(pattern);
 		return formatter.format(new Date());
 	}

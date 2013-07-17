@@ -1,5 +1,6 @@
 package com.ali.notes.data;
 
+import android.R.integer;
 import android.annotation.SuppressLint;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +15,7 @@ public class NoteItem {
 	private String description;
 	private String noteDate;
 	private String colorScheme;
+	private Integer isChecked;
 	
 	public static final String NOTES_TABLE = "notes";
 	public static final String FIELD_OID = "OID";
@@ -21,6 +23,8 @@ public class NoteItem {
 	public static final String FIELD_DESCRIPTION = "description";
 	public static final String FIELD_NOTE_DATE = "note_date";
 	public static final String FIELD_COLOR_SCHEME = "color_scheme";
+	public static final String FIELD_IS_CHECKED = "is_checked";
+	
 	
 	
 	public Integer getOID()
@@ -76,6 +80,16 @@ public class NoteItem {
 		this.colorScheme = colorScheme; 
 	}
 	
+	public Integer getIsChecked()
+	{
+		return this.isChecked;
+	}
+	
+	public void setIsChecked(int isChecked)
+	{
+		this.isChecked = isChecked; 
+	}
+	
 	
 		
 	
@@ -95,6 +109,7 @@ public class NoteItem {
 		noteItem.setTitle("");
 		noteItem.setDescription("");
 		noteItem.setNoteDate("");
+		noteItem.setIsChecked(0);
 		noteItem.setColorScheme(ColorScheme.defaultColorScheme);
 		
 		return noteItem;

@@ -11,10 +11,13 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
@@ -60,6 +63,13 @@ public class NotesListAdapter extends ArrayAdapter<NoteItem> {
 		holder.txtTitle.setText(noteItem.getTitle());
 		holder.txtTitle.setBackgroundColor(Color.parseColor(colorScheme.colorCodes.get(noteItem.getColorScheme()).get("title")));
 		
+		if(noteItem.getIsChecked() == 1)
+		{
+			//holder.txtTitle.setBackgroundColor(Color.parseColor(colorScheme.colorCodes.get(noteItem.getColorScheme()).get("title")));
+			holder.txtTitle.setPaintFlags(holder.txtTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+		}
+		
+			
 		
 		holder.txtDate.setBackgroundColor(Color.parseColor(colorScheme.colorCodes.get(noteItem.getColorScheme()).get("title")));
 		
@@ -92,4 +102,5 @@ public class NotesListAdapter extends ArrayAdapter<NoteItem> {
 		TextView txtTitle;
 		TextView txtDate;
     }
+	
 }

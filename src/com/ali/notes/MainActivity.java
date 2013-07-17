@@ -15,9 +15,11 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
@@ -32,6 +34,12 @@ public class MainActivity extends ListActivity{
 	private static final int EDITOR_ACTIVITY_REQUEST = 1001;
 	private static final int MENU_DELETE_ID = 1002;
 	public static final int COLOR_PICKER = 1003;
+	private static final int MENU_CHECK_ID = 1004;
+	
+	
+	//private GestureDetector gestureDetector;
+	final SwipeDetector swipeDetector = new SwipeDetector();
+	
 	
 	private int currentNoteId;
 	private NotesDataSource dataSource;
@@ -41,10 +49,16 @@ public class MainActivity extends ListActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+		//initializeDb();
 		registerForContextMenu(getListView());
 		dataSource = new NotesDataSource(this);
 		refreshDisplay();
+		
+		
+		final ListView lv = getListView();
+		lv.setOnTouchListener(this.swipeDetector);
+		//this.gestureDetector = new GestureDetector(this, new customGestureListener());
+		
 	}
 
 	private void refreshDisplay() {
@@ -53,9 +67,7 @@ public class MainActivity extends ListActivity{
 		NotesListAdapter adapter = new NotesListAdapter(this, R.layout.list_item_layout, notesList);
 		//ArrayAdapter<NoteItem> adapter = new ArrayAdapter<NoteItem>(this, R.layout.list_item_layout, notesList);
 		setListAdapter(adapter);
-		
-		
-		
+	
 	}
 	
 		@Override
@@ -86,17 +98,32 @@ public class MainActivity extends ListActivity{
 	
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		NoteItem note = notesList.get(position);
-		Intent intent = new Intent(this, NoteEditorActivity.class);
-		intent.putExtra("OID", note.getOID());
-		intent.putExtra("title", note.getTitle());
-		intent.putExtra("description", note.getDescription());
-		intent.putExtra("colorScheme", note.getColorScheme());
-		startActivityForResult(intent, EDITOR_ACTIVITY_REQUEST);
+		NoteItem note = notesList.get(position); 
+		
+		if (swipeDetector.swipeDetected()){
+			if(note.getIsChecked() == 1)
+			{
+				note.setIsChecked(0);
+			}
+			else
+			{
+				note.setIsChecked(1);
+			}
+			dataSource.update(note);
+			refreshDisplay(); 
+        } else {
+    		Intent intent = new Intent(this, NoteEditorActivity.class);
+    		intent.putExtra("OID", note.getOID());
+    		intent.putExtra("title", note.getTitle());
+    		intent.putExtra("description", note.getDescription());
+    		intent.putExtra("colorScheme", note.getColorScheme());
+    		startActivityForResult(intent, EDITOR_ACTIVITY_REQUEST);
+        }
+		
+		
 	}
 	
-	
-	
+
 	@SuppressLint("NewApi")
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -111,7 +138,7 @@ public class MainActivity extends ListActivity{
 			note.setColorScheme(data.getStringExtra("colorScheme"));
 			if(OID == 0)
 			{
-				if( (note.getTitle() != null && !note.getTitle().isEmpty()) && (note.getDescription() != null && !note.getDescription().isEmpty()))
+				if(note.getDescription() != null && !note.getDescription().isEmpty())
 				{
 					dataSource.insert(note);
 					showStatusToast("Note inserted successfully");
@@ -133,6 +160,7 @@ public class MainActivity extends ListActivity{
 		currentNoteId = (int)info.id;
 		menu.setHeaderTitle(R.string.note_list_operations);
 		menu.add(0, MENU_DELETE_ID, 0, "Delete");
+		menu.add(0, MENU_CHECK_ID, 0, "Check");
 		super.onCreateContextMenu(menu, v, menuInfo);
 	}
 	
@@ -144,6 +172,20 @@ public class MainActivity extends ListActivity{
 			dataSource.remove(note);
 			showStatusToast("Note removed successfully");
 			refreshDisplay();
+		}
+		else if(item.getItemId() == MENU_CHECK_ID)
+		{
+			NoteItem note = notesList.get(currentNoteId);
+			if(note.getIsChecked() == 1)
+			{
+				note.setIsChecked(0);
+			}
+			else
+			{
+				note.setIsChecked(1);
+			}
+			dataSource.update(note);
+			refreshDisplay(); 
 		}
 		return super.onContextItemSelected(item);
 	}
@@ -158,10 +200,12 @@ public class MainActivity extends ListActivity{
 	}
 	
 	
+	
 	public void initializeDb()
 	{
 		//SQLiteDatabase db = openOrCreateDatabase("notes_db", MODE_PRIVATE, null);
 		//db.execSQL("ALTER TABLE notes ADD COLUMN color_scheme VARCHAR;");
+		//db.execSQL("ALTER TABLE notes ADD COLUMN is_checked INTEGER;");
 		//db.execSQL("CREATE TABLE IF NOT EXISTS notes(title VARCHAR,description text, note_date text);");
 		//db.execSQL("INSERT INTO notes(title,description,note_date) values('note3','this is my third note','7-6-2013');");
 		//db.execSQL("INSERT INTO notes(title,description,note_date) values('note4','this is my fourth note','7-6-2013');");

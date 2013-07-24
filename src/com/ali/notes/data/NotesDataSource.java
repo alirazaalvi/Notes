@@ -22,7 +22,7 @@ import android.util.Log;
 public class NotesDataSource extends SQLiteOpenHelper {
 
 	private static final String PREFKEY = "notes";
-	private static final String DB_NAME = "notes_db";
+	public static final String DB_NAME = "notes_db";
 	public NotesDataSource(Context context) {
 		super(context, DB_NAME, null, 1);
 	}
@@ -113,7 +113,7 @@ public class NotesDataSource extends SQLiteOpenHelper {
 		return formatter.format(new Date());
 	}
 	
-	public String getCurrentDate(String pattern) {
+	public static String getCurrentDate(String pattern) {
 		SimpleDateFormat formatter = new SimpleDateFormat(pattern);
 		return formatter.format(new Date());
 	}

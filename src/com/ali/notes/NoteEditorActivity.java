@@ -1,30 +1,23 @@
 package com.ali.notes;
 
-import java.util.ArrayList;
-import java.util.EmptyStackException;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.ali.notes.data.NoteItem;
-
 import android.annotation.SuppressLint;
-import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-//import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.view.View.OnClickListener;
+import com.ali.notes.data.NoteItem;
+
+//import android.content.DialogInterface.OnClickListener;
 
 
 
@@ -33,10 +26,7 @@ public class NoteEditorActivity extends Activity implements OnClickListener{
 	
 	private NoteItem note;
 	private ColorScheme colorScheme;
-	//private String colorScheme;
-	
-	
-	
+
 	public NoteEditorActivity()
 	{
 		//settings the color codes Map
@@ -109,18 +99,14 @@ public class NoteEditorActivity extends Activity implements OnClickListener{
 	{
 		if(v.getId() == R.id.btnChangeColor)
 		{
-			//Intent intent = new Intent(this, PickColorActivity.class);
-			//startActivityForResult(intent, MainActivity.COLOR_PICKER);
 			final Dialog dialog = new Dialog(this);
 			dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 			dialog.setContentView(R.layout.activity_pick_color);
-			//dialog.setTitle("Set note color");
 			dialog.show();
 			
 			Window window = dialog.getWindow();
 			window.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#E8E8E8")));
-			//window.setLayout(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			
+
 			
 			Button btnRed = (Button) dialog.findViewById(R.id.btnRed);
 			Button btnOrange = (Button) dialog.findViewById(R.id.btnOrange);
@@ -207,13 +193,11 @@ public class NoteEditorActivity extends Activity implements OnClickListener{
 	{
 		TextView noteTitle = (TextView) findViewById(R.id.noteTitle);
 		TextView txtNoteTopBorder = (TextView) findViewById(R.id.txtNoteTopBorder);
-		//TextView noteDescription = (TextView) findViewById(R.id.noteDescription);
 		ImageButton btnChangeColor = (ImageButton) findViewById(R.id.btnChangeColor);
 		
 		if(scheme != null && !scheme.isEmpty())
 		{
 			noteTitle.setBackgroundColor(Color.parseColor(this.colorScheme.colorCodes.get(scheme).get("title")));
-			//noteDescription.setBackgroundColor(Color.parseColor(this.colorScheme.colorCodes.get(scheme).get("description")));
 			txtNoteTopBorder.setBackgroundColor(Color.parseColor(this.colorScheme.colorCodes.get(scheme).get("description")));
 			
 			btnChangeColor.setBackgroundColor(Color.parseColor(this.colorScheme.colorCodes.get(scheme).get("title")));
@@ -222,7 +206,6 @@ public class NoteEditorActivity extends Activity implements OnClickListener{
 		else
 		{
 			noteTitle.setBackgroundColor(Color.parseColor(this.colorScheme.colorCodes.get(this.colorScheme.defaultColorScheme).get("title")));
-			//noteDescription.setBackgroundColor(Color.parseColor(this.colorScheme.colorCodes.get(this.colorScheme.defaultColorScheme).get("description")));
 			txtNoteTopBorder.setBackgroundColor(Color.parseColor(this.colorScheme.colorCodes.get(this.colorScheme.defaultColorScheme).get("description")));
 			btnChangeColor.setBackgroundColor(Color.parseColor(this.colorScheme.colorCodes.get(this.colorScheme.defaultColorScheme).get("title")));
 			this.colorScheme.setColorScheme(scheme);

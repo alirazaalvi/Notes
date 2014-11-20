@@ -1,23 +1,16 @@
 package com.ali.notes.data;
 
+import android.annotation.SuppressLint;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
-import com.ali.notes.R.string;
-
-import android.annotation.SuppressLint;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 public class NotesDataSource extends SQLiteOpenHelper {
 
@@ -117,11 +110,4 @@ public class NotesDataSource extends SQLiteOpenHelper {
 		SimpleDateFormat formatter = new SimpleDateFormat(pattern);
 		return formatter.format(new Date());
 	}
-	
-	/*public void initializeDb()
-	{
-		SQLiteDatabase db = getWritableDatabase();
-		db.execSQL("CREATE TABLE IF NOT EXISTS "+ NoteItem.NOTES_TABLE + "(title VARCHAR,description text, note_date text);");
-		db.close();
-	}*/
 }

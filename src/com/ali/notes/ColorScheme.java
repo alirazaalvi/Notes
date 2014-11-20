@@ -6,8 +6,8 @@ import java.util.Map;
 public class ColorScheme {
 	
 	private String colorScheme;
-	public static String defaultColorScheme = "white";
-	public  static HashMap<String, Map<String, String>> colorCodes = new HashMap<String, Map<String,String>>();
+	public static final String defaultColorScheme = "white";
+	public static HashMap<String, Map<String, String>> colorCodes = new HashMap<String, Map<String,String>>();
 	
 	
 	public ColorScheme()

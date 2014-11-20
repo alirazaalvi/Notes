@@ -30,7 +30,7 @@
 		     android:layout_alignParentTop="true"
 		     android:background="@android:color/transparent"
 		     android:src="@drawable/ic_pick_color"
-		     />
+             android:contentDescription="@string/change_color"/>
    
     </RelativeLayout>
     
@@ -44,7 +44,7 @@
 		     android:layout_height="3dp"
 		     android:layout_alignParentLeft="true"
 		     android:layout_alignParentTop="true"
-		     />
+             />
         
     </RelativeLayout>
     
